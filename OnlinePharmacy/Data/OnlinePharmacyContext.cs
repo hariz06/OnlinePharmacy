@@ -20,6 +20,9 @@ namespace OnlinePharmacy.Data
 
             builder.ApplyConfiguration(new ProductSeed());
             builder.ApplyConfiguration(new ShopSeed());
+            builder.ApplyConfiguration(new RoleSeed());
+            builder.ApplyConfiguration(new UserRoleSeed());
+            builder.ApplyConfiguration(new UserSeed());
         }
     }
 }
