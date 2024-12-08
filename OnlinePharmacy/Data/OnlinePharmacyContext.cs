@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OnlinePharmacy.Configurations.Entities;
-using OnlinePharmacy.Domain;
+using OnlinePharmacy.Data;
 
 namespace OnlinePharmacy.Data
 {
-    public class OnlinePharmacyContext : DbContext
+    public class OnlinePharmacyContext(DbContextOptions<OnlinePharmacyContext> options) : IdentityDbContext<OnlinePharmacyUser>(options)
     {
-        public OnlinePharmacyContext (DbContextOptions<OnlinePharmacyContext> options)
-            : base(options)
-        {
-        }
-
         public DbSet<OnlinePharmacy.Domain.Customer> Customer { get; set; } = default!;
         public DbSet<OnlinePharmacy.Domain.Order> Order { get; set; } = default!;
         public DbSet<OnlinePharmacy.Domain.Staff> Staff { get; set; } = default!;
