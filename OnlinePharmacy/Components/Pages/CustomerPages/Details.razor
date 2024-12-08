@@ -1,4 +1,4 @@
-﻿@page "/customer/details"
+﻿@page "/custome/details"
 @using Microsoft.EntityFrameworkCore
 @using OnlinePharmacy.Domain
 @inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
@@ -23,8 +23,6 @@
             <dd class="col-sm-10">@customer.Email</dd>
             <dt class="col-sm-2">Address</dt>
             <dd class="col-sm-10">@customer.Address</dd>
-            <dt class="col-sm-2">Password</dt>
-            <dd class="col-sm-10">@customer.Password</dd>
             <dt class="col-sm-2">Contact</dt>
             <dd class="col-sm-10">@customer.Contact</dd>
             <dt class="col-sm-2">ShopId</dt>
