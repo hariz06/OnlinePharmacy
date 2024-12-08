@@ -1,0 +1,74 @@
+﻿@page "/shops/create"
+@using Microsoft.EntityFrameworkCore
+@using OnlinePharmacy.Domain
+@inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Shop</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Shop" OnValidSubmit="AddShop" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label> 
+                <InputText id="name" @bind-Value="Shop.Name" class="form-control" /> 
+                <ValidationMessage For="() => Shop.Name" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="address" class="form-label">Address:</label> 
+                <InputText id="address" @bind-Value="Shop.Address" class="form-control" /> 
+                <ValidationMessage For="() => Shop.Address" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact:</label> 
+                <InputText id="contact" @bind-Value="Shop.Contact" class="form-control" /> 
+                <ValidationMessage For="() => Shop.Contact" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="createdby" class="form-label">CreatedBy:</label> 
+                <InputText id="createdby" @bind-Value="Shop.CreatedBy" class="form-control" /> 
+                <ValidationMessage For="() => Shop.CreatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="updatedby" class="form-label">UpdatedBy:</label> 
+                <InputText id="updatedby" @bind-Value="Shop.UpdatedBy" class="form-control" /> 
+                <ValidationMessage For="() => Shop.UpdatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="Shop.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => Shop.DateCreated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateupdated" class="form-label">DateUpdated:</label> 
+                <InputDate id="dateupdated" @bind-Value="Shop.DateUpdated" class="form-control" /> 
+                <ValidationMessage For="() => Shop.DateUpdated" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/shops">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Shop Shop { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddShop()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Shop.Add(Shop);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/shops");
+    }
+}

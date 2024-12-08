@@ -1,0 +1,64 @@
+﻿@page "/staff/details"
+@using Microsoft.EntityFrameworkCore
+@using OnlinePharmacy.Domain
+@inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Staff</h2>
+    <hr />
+    @if (staff is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Name</dt>
+            <dd class="col-sm-10">@staff.Name</dd>
+            <dt class="col-sm-2">Role</dt>
+            <dd class="col-sm-10">@staff.Role</dd>
+            <dt class="col-sm-2">Contact</dt>
+            <dd class="col-sm-10">@staff.Contact</dd>
+            <dt class="col-sm-2">Email</dt>
+            <dd class="col-sm-10">@staff.Email</dd>
+            <dt class="col-sm-2">Password</dt>
+            <dd class="col-sm-10">@staff.Password</dd>
+            <dt class="col-sm-2">ShopId</dt>
+            <dd class="col-sm-10">@staff.ShopId</dd>
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@staff.CreatedBy</dd>
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@staff.UpdatedBy</dd>
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@staff.DateCreated</dd>
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@staff.DateUpdated</dd>
+        </dl>
+        <div>
+            <a href="@($"/staff/edit?id={staff.Id}")">Edit</a> |
+            <a href="@($"/staff")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Staff? staff;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        staff = await context.Staff.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (staff is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

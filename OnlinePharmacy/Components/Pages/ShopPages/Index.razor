@@ -1,0 +1,42 @@
+﻿@page "/shops"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using OnlinePharmacy.Domain
+@using OnlinePharmacy.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="shops/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Shop">
+    <PropertyColumn Property="shop => shop.Name" />
+    <PropertyColumn Property="shop => shop.Address" />
+    <PropertyColumn Property="shop => shop.Contact" />
+    <PropertyColumn Property="shop => shop.CreatedBy" />
+    <PropertyColumn Property="shop => shop.UpdatedBy" />
+    <PropertyColumn Property="shop => shop.DateCreated" />
+    <PropertyColumn Property="shop => shop.DateUpdated" />
+
+    <TemplateColumn Context="shop">
+        <a href="@($"shops/edit?id={shop.Id}")">Edit</a> |
+        <a href="@($"shops/details?id={shop.Id}")">Details</a> |
+        <a href="@($"shops/delete?id={shop.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private OnlinePharmacyContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

@@ -1,0 +1,62 @@
+﻿@page "/products/details"
+@using Microsoft.EntityFrameworkCore
+@using OnlinePharmacy.Domain
+@inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Product</h2>
+    <hr />
+    @if (product is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Prod_Name</dt>
+            <dd class="col-sm-10">@product.Prod_Name</dd>
+            <dt class="col-sm-2">Prod_Type</dt>
+            <dd class="col-sm-10">@product.Prod_Type</dd>
+            <dt class="col-sm-2">Cost</dt>
+            <dd class="col-sm-10">@product.Cost</dd>
+            <dt class="col-sm-2">Quantity</dt>
+            <dd class="col-sm-10">@product.Quantity</dd>
+            <dt class="col-sm-2">ShopId</dt>
+            <dd class="col-sm-10">@product.ShopId</dd>
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@product.CreatedBy</dd>
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@product.UpdatedBy</dd>
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@product.DateCreated</dd>
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@product.DateUpdated</dd>
+        </dl>
+        <div>
+            <a href="@($"/products/edit?id={product.Id}")">Edit</a> |
+            <a href="@($"/products")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Product? product;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        product = await context.Product.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (product is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

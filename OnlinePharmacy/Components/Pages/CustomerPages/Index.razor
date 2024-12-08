@@ -1,0 +1,45 @@
+﻿@page "/customers"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using OnlinePharmacy.Domain
+@using OnlinePharmacy.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="customers/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Customer">
+    <PropertyColumn Property="customer => customer.Name" />
+    <PropertyColumn Property="customer => customer.Email" />
+    <PropertyColumn Property="customer => customer.Address" />
+    <PropertyColumn Property="customer => customer.Password" />
+    <PropertyColumn Property="customer => customer.Contact" />
+    <PropertyColumn Property="customer => customer.ShopId" />
+    <PropertyColumn Property="customer => customer.CreatedBy" />
+    <PropertyColumn Property="customer => customer.UpdatedBy" />
+    <PropertyColumn Property="customer => customer.DateCreated" />
+    <PropertyColumn Property="customer => customer.DateUpdated" />
+
+    <TemplateColumn Context="customer">
+        <a href="@($"customers/edit?id={customer.Id}")">Edit</a> |
+        <a href="@($"customers/details?id={customer.Id}")">Details</a> |
+        <a href="@($"customers/delete?id={customer.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private OnlinePharmacyContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

@@ -1,0 +1,60 @@
+﻿@page "/payments/details"
+@using Microsoft.EntityFrameworkCore
+@using OnlinePharmacy.Domain
+@inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Payment</h2>
+    <hr />
+    @if (payment is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Payment_Type</dt>
+            <dd class="col-sm-10">@payment.Payment_Type</dd>
+            <dt class="col-sm-2">P_Date</dt>
+            <dd class="col-sm-10">@payment.P_Date</dd>
+            <dt class="col-sm-2">OrderId</dt>
+            <dd class="col-sm-10">@payment.OrderId</dd>
+            <dt class="col-sm-2">CustId</dt>
+            <dd class="col-sm-10">@payment.CustId</dd>
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@payment.CreatedBy</dd>
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@payment.UpdatedBy</dd>
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@payment.DateCreated</dd>
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@payment.DateUpdated</dd>
+        </dl>
+        <div>
+            <a href="@($"/payments/edit?id={payment.Id}")">Edit</a> |
+            <a href="@($"/payments")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Payment? payment;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        payment = await context.Payment.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (payment is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

@@ -1,0 +1,84 @@
+﻿@page "/orders/create"
+@using Microsoft.EntityFrameworkCore
+@using OnlinePharmacy.Domain
+@inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Order</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Order" OnValidSubmit="AddOrder" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity:</label> 
+                <InputNumber id="quantity" @bind-Value="Order.Quantity" class="form-control" /> 
+                <ValidationMessage For="() => Order.Quantity" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="productid" class="form-label">ProductId:</label> 
+                <InputNumber id="productid" @bind-Value="Order.ProductId" class="form-control" /> 
+                <ValidationMessage For="() => Order.ProductId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="shopid" class="form-label">ShopId:</label> 
+                <InputNumber id="shopid" @bind-Value="Order.ShopId" class="form-control" /> 
+                <ValidationMessage For="() => Order.ShopId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="custid" class="form-label">CustId:</label> 
+                <InputNumber id="custid" @bind-Value="Order.CustId" class="form-control" /> 
+                <ValidationMessage For="() => Order.CustId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="paymentid" class="form-label">PaymentId:</label> 
+                <InputNumber id="paymentid" @bind-Value="Order.PaymentId" class="form-control" /> 
+                <ValidationMessage For="() => Order.PaymentId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="createdby" class="form-label">CreatedBy:</label> 
+                <InputText id="createdby" @bind-Value="Order.CreatedBy" class="form-control" /> 
+                <ValidationMessage For="() => Order.CreatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="updatedby" class="form-label">UpdatedBy:</label> 
+                <InputText id="updatedby" @bind-Value="Order.UpdatedBy" class="form-control" /> 
+                <ValidationMessage For="() => Order.UpdatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="Order.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => Order.DateCreated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateupdated" class="form-label">DateUpdated:</label> 
+                <InputDate id="dateupdated" @bind-Value="Order.DateUpdated" class="form-control" /> 
+                <ValidationMessage For="() => Order.DateUpdated" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/orders">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Order Order { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddOrder()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Order.Add(Order);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/orders");
+    }
+}

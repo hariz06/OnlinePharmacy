@@ -1,0 +1,43 @@
+﻿@page "/payments"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using OnlinePharmacy.Domain
+@using OnlinePharmacy.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="payments/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Payment">
+    <PropertyColumn Property="payment => payment.Payment_Type" />
+    <PropertyColumn Property="payment => payment.P_Date" />
+    <PropertyColumn Property="payment => payment.OrderId" />
+    <PropertyColumn Property="payment => payment.CustId" />
+    <PropertyColumn Property="payment => payment.CreatedBy" />
+    <PropertyColumn Property="payment => payment.UpdatedBy" />
+    <PropertyColumn Property="payment => payment.DateCreated" />
+    <PropertyColumn Property="payment => payment.DateUpdated" />
+
+    <TemplateColumn Context="payment">
+        <a href="@($"payments/edit?id={payment.Id}")">Edit</a> |
+        <a href="@($"payments/details?id={payment.Id}")">Details</a> |
+        <a href="@($"payments/delete?id={payment.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private OnlinePharmacyContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
