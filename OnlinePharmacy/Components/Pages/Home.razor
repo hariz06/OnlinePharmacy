@@ -1,7 +1,158 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<div class="home-page">
+    <!-- Search Bar and Navbar -->
+    <div class="navbar">
+        <h1 class="logo">PharmaCare</h1>
+        <div class="search-container">
+            <input type="text" placeholder="Search for medicines..." class="search-box" />
+            <button class="search-btn">🔍</button>
+        </div>
+        <div class="nav-links">
+            <a href="/cart">🛒 My Bag <span class="cart-count">0</span></a>
+        </div>
+    </div>
 
-<h1>Hello, Hariz!</h1>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to PharmaCare</h1>
+        <p>Find all your essential medicines at the best prices!</p>
+        <a href="/products" class="shop-now-btn">Shop Now</a>
+    </div>
 
-Welcome to your new app.
+    <!-- Featured Products -->
+    <div class="products-section">
+        <h2>Popular Medicines</h2>
+
+        <div class="product">
+            <img src="Downloads\paracetamol.jpg" alt="Paracetamol" class="product-img" />
+            <h3>Paracetamol 500mg</h3>
+            <p>$10.99</p>
+            <button class="add-to-bag">Add to Bag</button>
+        </div>
+
+        <div class="product">
+            <img src="images/ibuprofen.jpg" alt="Ibuprofen" class="product-img" />
+            <h3>Ibuprofen 400mg</h3>
+            <p>$12.50</p>
+            <button class="add-to-bag">Add to Bag</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 PharmaCare - Your Trusted Online Pharmacy</p>
+    </footer>
+</div>
+
+<style>
+    /* Background Styling */
+    .home-page {
+        background-color: #f4f4f4;
+        color: #333;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #007BFF;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .search-container {
+        display: flex;
+        gap: 5px;
+    }
+
+    .search-box {
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .search-btn {
+        background: white;
+        border: none;
+        padding: 8px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin-left: 15px;
+    }
+
+    /* Hero Section */
+    .hero {
+        text-align: center;
+        padding: 50px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+    }
+
+    .shop-now-btn {
+        display: inline-block;
+        background: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+    /* Products Section */
+    .products-section {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .product {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-img {
+        width: 100px;
+        height: auto;
+    }
+
+    .add-to-bag {
+        background: #007BFF;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 10px;
+        background: #007BFF;
+        color: white;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+</style>

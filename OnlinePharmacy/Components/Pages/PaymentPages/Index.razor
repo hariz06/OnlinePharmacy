@@ -5,6 +5,7 @@
 @using OnlinePharmacy.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<OnlinePharmacy.Data.OnlinePharmacyContext> DbFactory
+@attribute [Authorize(Roles = "Administrator, User")]
 
 <PageTitle>Index</PageTitle>
 

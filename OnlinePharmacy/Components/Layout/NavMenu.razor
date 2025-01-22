@@ -19,31 +19,13 @@
             <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Account/Manage">
-                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
-                    </NavLink>
-                </div>
-
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="product">
-                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Product
+                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> Profile
                     </NavLink>
                 </div>
 
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="shop">
                         <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Shop
-                    </NavLink>
-                </div>
-
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="staff">
-                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Staff
-                    </NavLink>
-                </div>
-
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="customer">
-                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Customer
                     </NavLink>
                 </div>
 
@@ -55,7 +37,7 @@
 
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="order">
-                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Order
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Cart
                     </NavLink>
                 </div>
 
@@ -84,6 +66,8 @@
         </AuthorizeView>
     </nav>
 </div>
+
+
 
 @code {
     private string? currentUrl;
